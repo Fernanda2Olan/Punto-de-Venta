@@ -3,7 +3,8 @@ import { supabase } from '@/supabase'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    user: null
+    user: null,
+    userRole: 'user'
   }),
   getters: {
     isAuthenticated: (state) => !!state.user
