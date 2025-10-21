@@ -41,8 +41,8 @@ const handleReset = async () => {
   successMessage.value = ''
 
   const { error } = await supabase.auth.resetPasswordForEmail(email.value, {
-    redirectTo: window.location.origin + '/reset-confirm'
-  })
+  redirectTo: window.location.origin + '/reset-confirm'
+})
 
   if (error) {
     errorMessage.value = 'Error al enviar el correo. Verifica tu dirección.'

@@ -1,29 +1,40 @@
 <template>
   <div class="reset-page">
     <div class="reset-box">
-      <h2>Recuperar contraseña</h2>
+      <h2>Restablecer contraseña</h2>
 
-      <form @submit.prevent="handleReset">
+      <form @submit.prevent="handleUpdate">
         <div class="form-group">
-          <label for="email">Correo electrónico</label>
+          <label for="password">Nueva contraseña</label>
           <input
-            id="email"
-            type="email"
-            v-model="email"
+            id="password"
+            type="password"
+            v-model="password"
             required
-            placeholder="Ingresa tu correo"
+            placeholder="Nueva contraseña"
           />
         </div>
 
-        <button type="submit" class="btn-reset">Enviar enlace</button>
+        <div class="form-group">
+          <label for="confirm">Confirmar contraseña</label>
+          <input
+            id="confirm"
+            type="password"
+            v-model="confirmPassword"
+            required
+            placeholder="Confirma la contraseña"
+          />
+        </div>
 
-        <p class="extra-links">
-          <router-link to="/login">Volver al inicio de sesión</router-link>
-        </p>
+        <button type="submit" class="btn-reset">Actualizar contraseña</button>
       </form>
 
       <p v-if="successMessage" class="success">{{ successMessage }}</p>
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+
+      <p v-if="successMessage" class="extra-links">
+        <router-link to="/login">Volver al inicio de sesión</router-link>
+      </p>
     </div>
   </div>
 </template>
@@ -32,24 +43,29 @@
 import { ref } from 'vue'
 import { supabase } from '@/supabase'
 
-const email = ref('')
+const password = ref('')
+const confirmPassword = ref('')
 const successMessage = ref('')
 const errorMessage = ref('')
 
-const handleReset = async () => {
+const handleUpdate = async () => {
   errorMessage.value = ''
   successMessage.value = ''
 
-  const { error } = await supabase.auth.resetPasswordForEmail(email.value, {
-    redirectTo: window.location.origin + '/reset-confirm'
-  })
+  if (password.value !== confirmPassword.value) {
+    errorMessage.value = 'Las contraseñas no coinciden.'
+    return
+  }
+
+  const { error } = await supabase.auth.updateUser({ password: password.value })
 
   if (error) {
-    errorMessage.value = 'Error al enviar el correo. Verifica tu dirección.'
     console.error(error)
+    errorMessage.value = 'Ocurrió un error al actualizar la contraseña.'
   } else {
-    successMessage.value = 'Se ha enviado un enlace a tu correo para restablecer la contraseña.'
-    email.value = ''
+    successMessage.value = 'Tu contraseña se ha actualizado correctamente.'
+    password.value = ''
+    confirmPassword.value = ''
   }
 }
 </script>
@@ -112,16 +128,6 @@ input {
   background: #a1887f;
 }
 
-.extra-links {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.extra-links a {
-  color: #ffcc80;
-  text-decoration: none;
-}
-
 .error {
   color: #ffccbc;
   margin-top: 10px;
@@ -132,5 +138,15 @@ input {
   color: #c8e6c9;
   margin-top: 10px;
   text-align: center;
+}
+
+.extra-links {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.extra-links a {
+  color: #ffcc80;
+  text-decoration: none;
 }
 </style>

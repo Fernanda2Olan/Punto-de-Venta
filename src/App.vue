@@ -16,4 +16,9 @@ import AppHeader from './components/AppHeader.vue'
   min-height: 100vh;
   margin: 0;
 }
+html, body, #app {
+  margin: 0;
+  padding: 0;
+  background-color: #d7ccc8; 
+}
 </style>

@@ -57,7 +57,7 @@ const goLogin = () => {
   background: #5d4037; /* Café oscuro */
   color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  padding: 16px 24px;
+  padding: 24px 24px;
 }
 
 .header-content {
@@ -113,7 +113,7 @@ h1 {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 800;
   transition: background 0.3s;
 }
 
