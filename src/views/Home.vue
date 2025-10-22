@@ -46,7 +46,7 @@ const menuItems = [
 }
 
 main {
-  padding: 20px;
+  padding: 15px;
   text-align: center;
   background-color: var(--brown-light);
   min-height: calc(100vh - 80px); 
@@ -55,19 +55,19 @@ main {
 .welcome-text {
   color: var(--brown-dark);
   font-size: 20px;
-  margin-bottom: 35px;
+  margin-bottom: 40px;
 }
 
 .carousel {
   display: flex;
   overflow-x: auto;
-  gap: 20px;
+  gap: 30px;
   padding-bottom: 10px;
   scroll-behavior: smooth;
 }
 
 .carousel::-webkit-scrollbar {
-  height: 8px;
+  height: 10px;
 }
 
 .carousel::-webkit-scrollbar-thumb {

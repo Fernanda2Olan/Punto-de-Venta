@@ -54,8 +54,8 @@ const handleLogin = async () => {
   }
 
   if (data.session) {
-    router.push('/') 
-  }
+  router.push('/pos') 
+}
 }
 </script>
 
@@ -65,11 +65,11 @@ const handleLogin = async () => {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #d7ccc8; /* café claro */
+  background: #d7ccc8; 
 }
 
 .login-box {
-  background: #5d4037; /* café oscuro */
+  background: #5d4037; 
   color: white;
   padding: 30px;
   border-radius: 12px;
@@ -101,7 +101,7 @@ input {
 }
 
 .btn-login {
-  width: 100%;
+  width: 105%;
   background: #8d6e63;
   color: white;
   border: none;

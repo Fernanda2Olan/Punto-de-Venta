@@ -5,7 +5,7 @@ import Register from '@/views/Register.vue'
 import ResetPassword from '@/views/ResetPassword.vue'
 import Pos from '@/views/Pos.vue'
 import ForgotPassword from '@/views/ForgotPassword.vue'
-
+import { useAuthStore } from '@/stores/auth'
 
 const routes = [
   { path: '/', component: Home },
@@ -13,14 +13,29 @@ const routes = [
   { path: '/register', component: Register },
   { path: '/forgot', component: ForgotPassword },
   { path: '/reset', component: ResetPassword },
-  { path: '/pos', component: Pos },
   { path: '/reset-confirm', component: () => import('@/views/ResetConfirm.vue') },
-
+  { path: '/pos', component: Pos }, 
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore()
+
+  const rutasProtegidas = ['/pos']
+
+  if (!authStore.user) {
+    await authStore.fetchUser()
+  }
+
+  if (rutasProtegidas.includes(to.path) && !authStore.isAuthenticated) {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router

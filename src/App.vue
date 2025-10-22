@@ -7,6 +7,15 @@
 
 <script setup>
 import AppHeader from './components/AppHeader.vue'
+import { onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth'
+
+const authStore = useAuthStore()
+
+onMounted(() => {
+  authStore.fetchUser()
+  authStore.listenToAuthChanges()
+})
 </script>
 
 <style>

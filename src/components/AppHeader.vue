@@ -4,7 +4,8 @@
       <h1>Punto de Venta - Restaurante La Troje</h1>
 
       <div v-if="authStore.isAuthenticated" class="user-info">
-        <span class="user-name">{{ authStore.user?.email }}</span>
+        <!-- 👇 Ahora muestra el nombre desde la tabla profiles -->
+        <span class="user-name">{{ authStore.userName }}</span>
         <span class="user-role" :class="`role-${authStore.userRole}`">
           {{ roleLabel }}
         </span>
@@ -30,7 +31,6 @@ import { useAuthStore } from '@/stores/auth'
 const router = useRouter()
 const authStore = useAuthStore()
 
-// Mostrar el rol traducido
 const roleLabel = computed(() => {
   const roles = {
     admin: 'Administrador',

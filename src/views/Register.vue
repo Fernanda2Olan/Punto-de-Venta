@@ -81,11 +81,11 @@ const handleRegister = async () => {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #d7ccc8; /* café claro */
+  background: #d7ccc8; 
 }
 
 .register-box {
-  background: #5d4037; /* café oscuro */
+  background: #5d4037; 
   color: white;
   padding: 30px;
   border-radius: 12px;
