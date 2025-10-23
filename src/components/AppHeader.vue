@@ -4,11 +4,7 @@
       <h1>Punto de Venta - Restaurante La Troje</h1>
 
       <div v-if="authStore.isAuthenticated" class="user-info">
-        <!-- 👇 Ahora muestra el nombre desde la tabla profiles -->
         <span class="user-name">{{ authStore.userName }}</span>
-        <span class="user-role" :class="`role-${authStore.userRole}`">
-          {{ roleLabel }}
-        </span>
         <button @click="handleLogout" class="logout-button">
           Cerrar Sesión
         </button>
@@ -54,7 +50,7 @@ const goLogin = () => {
 
 <style scoped>
 .app-header {
-  background: #5d4037; /* Café oscuro */
+  background: #5d4037; 
   color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   padding: 24px 24px;
@@ -70,7 +66,7 @@ const goLogin = () => {
 
 h1 {
   margin: 0;
-  color: #d7ccc8; /* Café claro */
+  color: #d7ccc8; 
   font-size: 22px;
   font-weight: bold;
 }

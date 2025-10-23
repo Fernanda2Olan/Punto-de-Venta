@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { supabase } from '@/supabase'
+import { useRouter } from 'vue-router'
+
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -70,15 +72,19 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async signOut() {
-      const { error } = await supabase.auth.signOut()
-      if (error) {
-        console.error('Error al cerrar sesión:', error)
-        return
+      try {
+        const { error } = await supabase.auth.signOut()
+        if (error) throw error
+        this.user = null
+        this.profile = null
+
+        localStorage.clear()
+        sessionStorage.clear()
+
+        window.location.href = '/login'
+      } catch (err) {
+        console.error('Error al cerrar sesión:', err.message)
       }
-      this.user = null
-      this.profile = null
-      const router = useRouter()
-      router.push('/login')
     },
 
     listenToAuthChanges() {

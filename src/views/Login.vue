@@ -63,9 +63,10 @@ const handleLogin = async () => {
 .login-page {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  align-items: flex-start;
+  min-height: 100vh;
   background: #d7ccc8; 
+  padding-top: 8vh;
 }
 
 .login-box {
@@ -73,13 +74,16 @@ const handleLogin = async () => {
   color: white;
   padding: 30px;
   border-radius: 12px;
-  width: 330px;
+  width: 320px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  text-align: center;
+  margin-top: 40px;
 }
 
+
 h2 {
-  text-align: center;
   margin-bottom: 20px;
+  font-size: 22px;
 }
 
 .form-group {
@@ -94,22 +98,34 @@ label {
 }
 
 input {
-  width: 100%;
-  padding: 8px;
+  width: 90%; 
+  margin: 0 auto; 
+  display: block;
+  padding: 10px;
   border: none;
   border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset;
 }
 
 .btn-login {
-  width: 105%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px auto 0 auto;
+  width: 100%;
+  max-width: 250px; 
   background: #8d6e63;
   color: white;
   border: none;
   padding: 10px;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .btn-login:hover {
@@ -131,4 +147,8 @@ input {
   margin-top: 10px;
   text-align: center;
 }
+
+
+
+
 </style>

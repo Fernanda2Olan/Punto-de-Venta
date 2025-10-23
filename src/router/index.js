@@ -29,17 +29,19 @@ router.beforeEach(async (to, from, next) => {
     await authStore.fetchUser()
   }
 
-  if (to.path === '/login' && authStore.isAuthenticated) {
-    next('/') 
-    return
-  }
-
   const rutasProtegidas = ['/pos']
+
   if (rutasProtegidas.includes(to.path) && !authStore.isAuthenticated) {
     next('/login')
-  } else {
+  } 
+
+  else if (['/login', '/register'].includes(to.path) && authStore.isAuthenticated) {
+    next('/')
+  } 
+  else {
     next()
   }
 })
+
 
 export default router
