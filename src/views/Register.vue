@@ -64,16 +64,15 @@ const handleRegister = async () => {
 
   try {
     await authStore.register(email.value, password.value, name.value)
-
     successMessage.value = 'Registro exitoso. Redirigiendo al inicio de sesión...'
-    setTimeout(() => {
-      router.push('/login')
-    }, 2000)
+    setTimeout(() => router.push('/login'), 2000)
   } catch (error) {
+    console.error(error)
     errorMessage.value = error.message || 'Error al registrar usuario.'
   }
 }
 </script>
+  
 
 <style scoped>
 .register-page {

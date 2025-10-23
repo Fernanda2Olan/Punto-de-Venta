@@ -73,7 +73,7 @@ const handleLogin = async () => {
   color: white;
   padding: 30px;
   border-radius: 12px;
-  width: 300px;
+  width: 330px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 

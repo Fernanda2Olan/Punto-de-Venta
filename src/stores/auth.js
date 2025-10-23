@@ -25,20 +25,32 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async register(email, password, nombre) {
-      const { data, error } = await supabase.auth.signUp({ email, password })
-      if (error) throw error
+  const { data, error } = await supabase.auth.signUp({ email, password })
+  if (error) throw error
 
-      const user = data.user
-      if (user) {
-        const { error: insertError } = await supabase
-          .from('perfiles')
-          .insert([{ user_id: user.id, nombre, rol: 'user' }])
-        if (insertError) console.error(insertError)
-      }
+  const user = data.user
+  if (!user) throw new Error('No se pudo crear el usuario')
 
-      this.user = user
-      this.profile = { nombre, rol: 'user' }
-    },
+
+  let rol = 'cliente' 
+  if (email === 'al20760686@ite.edu.mx') { 
+    rol = 'admin'
+  }
+
+  const { error: insertError } = await supabase
+    .from('perfiles')
+    .insert([{ user_id: user.id, nombre, rol }])
+
+  if (insertError) {
+    console.error('Error al insertar perfil:', insertError)
+    throw insertError
+  }
+
+
+  this.user = user
+  this.profile = { nombre, rol }
+},
+
 
     async login(email, password) {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password })
@@ -58,9 +70,15 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async signOut() {
-      await supabase.auth.signOut()
+      const { error } = await supabase.auth.signOut()
+      if (error) {
+        console.error('Error al cerrar sesión:', error)
+        return
+      }
       this.user = null
       this.profile = null
+      const router = useRouter()
+      router.push('/login')
     },
 
     listenToAuthChanges() {

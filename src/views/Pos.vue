@@ -2,27 +2,31 @@
   <div class="pos-container">
     <header class="pos-header">
       <h2>Bienvenido, {{ authStore.userName }}</h2>
+      <p>Rol: {{ authStore.userRole }}</p>
     </header>
 
+
     <nav class="pos-nav">
-      <button 
-        :class="{ active: currentTab === 'venta' }"
-        @click="currentTab = 'venta'"
-      >
-        Punto de Venta
-      </button>
-      <button 
+
+      <button
+        v-if="authStore.userRole === 'admin'"
         :class="{ active: currentTab === 'alta' }"
         @click="currentTab = 'alta'"
       >
         Alta de Platillos
       </button>
+
+      <button
+        :class="{ active: currentTab === 'venta' }"
+        @click="currentTab = 'venta'"
+      >
+        Punto de Venta
+      </button>
     </nav>
 
-    
     <section class="pos-content">
-      <PuntoVenta v-if="currentTab === 'venta'" />
-      <AltaPlatillos v-else />
+      <AltaPlatillos v-if="authStore.userRole === 'admin' && currentTab === 'alta'" />
+      <PuntoVenta v-else />
     </section>
   </div>
 </template>
@@ -50,13 +54,18 @@ const currentTab = ref('venta')
   padding: 16px 24px;
   border-radius: 8px;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .pos-header h2 {
   margin: 0;
   font-size: 22px;
   font-weight: bold;
+}
+
+.pos-header p {
+  margin: 4px 0 0;
+  color: #d7ccc8;
 }
 
 .pos-nav {
@@ -86,6 +95,6 @@ const currentTab = ref('venta')
   background: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 </style>

@@ -14,7 +14,7 @@ const routes = [
   { path: '/forgot', component: ForgotPassword },
   { path: '/reset', component: ResetPassword },
   { path: '/reset-confirm', component: () => import('@/views/ResetConfirm.vue') },
-  { path: '/pos', component: Pos }, 
+  { path: '/pos', component: Pos },
 ]
 
 const router = createRouter({
@@ -25,12 +25,16 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
 
-  const rutasProtegidas = ['/pos']
-
   if (!authStore.user) {
     await authStore.fetchUser()
   }
 
+  if (to.path === '/login' && authStore.isAuthenticated) {
+    next('/') 
+    return
+  }
+
+  const rutasProtegidas = ['/pos']
   if (rutasProtegidas.includes(to.path) && !authStore.isAuthenticated) {
     next('/login')
   } else {
